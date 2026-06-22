@@ -28,7 +28,7 @@ int main(void){
     }
 
     else{
-        printf("Overflow condition, size can't 0, less than 0 or greater than 50");
+        printf("Overflow condition, size can't be 0, less than 0 or greater than 50");
     }
 
 
