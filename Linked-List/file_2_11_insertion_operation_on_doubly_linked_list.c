@@ -31,6 +31,7 @@ struct returnValues create_doubly_linked_list(struct node *head, struct node *ta
     struct returnValues result;
 
     head = NULL;
+    tail == NULL;
     int choice = 1;
     struct node *newnode;
 
@@ -75,7 +76,7 @@ void display_doubly_linked_list(struct node *head, struct node *tail, int count)
 }
 
 
-//***** Function to insert a new node at the beginning of doubly linked list
+//***** Insert a new node at the beginning of doubly linked list
 struct returnValues insert_at_beg(struct node *head, struct node *tail, int count){
 
     struct returnValues returned_list_after_ins_at_beg;
@@ -117,6 +118,63 @@ struct returnValues insert_at_end(struct node *head, struct node *tail, int coun
     return returned_list_after_insertion_at_end;
 }
 
+//***** Insert new node at a random position
+struct returnValues insert_at_the_position(struct node *head, struct node *tail, int count){
+    
+    struct returnValues returned_list;
+    int pos = 0;
+
+    printf("Enter the specific position you want to insert the new node: ");
+    scanf("%d", &pos);
+
+    if(pos <= 0 || pos > count + 1){
+        printf("Invalid position");
+    }
+    else if(pos == 1){
+        returned_list = insert_at_beg(head, tail, count);
+        
+        head = returned_list.head;
+        tail = returned_list.tail;
+        count = returned_list.count;
+
+        display_doubly_linked_list(head,tail,count);
+    }
+    else if(pos == count + 1){
+       returned_list = insert_at_end(head,tail,count);
+        
+        head = returned_list.head;
+        tail = returned_list.tail;
+        count = returned_list.count;
+
+        display_doubly_linked_list(head, tail, count);
+    }
+    else{
+        struct node *newnode, *temp;
+        temp = head;
+        newnode = create_a_new_doubly_linked_list_node();
+
+        int i = 1;
+        while(i < pos - 1){
+            temp = temp->next;
+            i++;
+        }
+        newnode->prev = temp;
+        newnode->next = temp->next;
+        temp->next->prev = newnode;
+        temp->next = newnode;
+        count++;
+
+    }
+
+    struct returnValues result;
+
+    result.head = head;
+    result.tail = tail;
+    result.count = count;
+
+    return result;
+
+}
 
 
 int main(void){
@@ -145,6 +203,7 @@ int main(void){
     }
     else if(choice_of_insertion == 1){
         returned_list = insert_at_beg(head, tail, count);
+        
         head = returned_list.head;
         tail = returned_list.tail;
         count = returned_list.count;
@@ -153,11 +212,22 @@ int main(void){
     }
     else if(choice_of_insertion == 2){
         returned_list = insert_at_end(head,tail,count);
+        
         head = returned_list.head;
         tail = returned_list.tail;
         count = returned_list.count;
 
         display_doubly_linked_list(head, tail, count);
+    }
+    else if(choice_of_insertion == 3){
+        returned_list = insert_at_the_position(head,tail,count);
+
+        head = returned_list.head;
+        tail = returned_list.tail;
+        count = returned_list.count;
+
+        display_doubly_linked_list(head,tail,count);
+
     }
 
 
