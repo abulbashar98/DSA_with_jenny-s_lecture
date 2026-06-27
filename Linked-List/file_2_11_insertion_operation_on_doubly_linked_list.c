@@ -163,16 +163,17 @@ struct returnValues insert_at_the_position(struct node *head, struct node *tail,
         temp->next->prev = newnode;
         temp->next = newnode;
         count++;
+         
+        struct returnValues result;
 
+        result.head = head;
+        result.tail = tail;
+        result.count = count;
+
+        return result;
     }
 
-    struct returnValues result;
-
-    result.head = head;
-    result.tail = tail;
-    result.count = count;
-
-    return result;
+    
 
 }
 
