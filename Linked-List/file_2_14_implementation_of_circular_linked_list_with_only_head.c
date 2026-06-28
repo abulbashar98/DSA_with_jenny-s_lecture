@@ -13,7 +13,7 @@ struct returnValues{
 };
 
 //***** Create a single node of singly linked list type for circular linked list.
-struct node *create_a_singly_linked_list_nod_for_circular_linked_list(struct node *head, struct node *newnode){
+struct node *create_a_singly_linked_list_nod_for_circular_linked_list(struct node *newnode){
 
     newnode = (struct node *)malloc(sizeof(struct node));
     printf("Enter Data: ");
@@ -39,7 +39,7 @@ struct returnValues create_singly_circular_linked_list(struct node *head, struct
 
     for(int i = 0; i < count_input; i++){
 
-        newnode = create_a_singly_linked_list_nod_for_circular_linked_list(head,newnode);
+        newnode = create_a_singly_linked_list_nod_for_circular_linked_list(newnode);
 
         if(head == NULL){
             head = temp = newnode;
