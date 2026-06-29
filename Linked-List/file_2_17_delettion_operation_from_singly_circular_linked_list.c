@@ -127,6 +127,47 @@ struct returnValues del_from_end(struct node *tail, int nodeNo){
 
 }
 
+//****** Delete node from a random given position.
+struct returnValues del_from_a_random_pos(struct node *tail, int nodeNo){
+    
+    int pos = 0;
+    printf("\nEnter the position you want to delete node from the list: ");
+    scanf("%d", &pos);
+
+    if(pos < 1 || pos > nodeNo){
+        printf("Invalid Position.");
+    }
+    else if(pos == 1){
+        return del_from_beg(tail, nodeNo);
+    }
+    else if(pos == nodeNo){
+        return del_from_end(tail, nodeNo);
+    }
+    else{
+        struct node *temp, *delete_node;
+        temp = tail->next;
+        int i = 1;
+        delete_node = temp->next;
+        
+        while(i < pos - 1){
+            temp = temp->next;
+            delete_node = delete_node->next;
+            i++;
+        }
+        temp->next = delete_node->next;
+        free(delete_node);
+        
+        struct returnValues result;
+        
+        result.tail = tail;
+        result.nodeNo = nodeNo;
+
+        return result;
+
+    }
+
+}
+
 int main(void){
 
     struct node *tail, *newnode;
@@ -158,6 +199,12 @@ int main(void){
     }
     else if(choice_of_deletion == 2){
         returned_list = del_from_end(tail, nodeNo);
+
+        tail = returned_list.tail;
+        nodeNo = returned_list.nodeNo;
+    }
+    else if(choice_of_deletion == 3){
+        returned_list = del_from_a_random_pos(tail, nodeNo);
 
         tail = returned_list.tail;
         nodeNo = returned_list.nodeNo;
