@@ -74,23 +74,27 @@ void display_singly_circular_linked_list(struct node *tail, int nodeNo){
 
 }
 
-//****** revers singly circular linked list
+//****** reverse singly circular linked list
 struct returnValues reverse_singly_circular_linked_list(struct node *tail,int nodeNo){
     
+
+    struct node *head;
+    head = tail->next;
     
     struct node *prev, *current, *nextnode;
-
     prev = tail;
-    current = tail->next;
+    current = head;
+    
+    
 
     do{
         nextnode = current->next;
         current->next = prev;
         prev = current;
         current = nextnode;   
-    }while((current != tail->next));
+    }while((current != head));
 
-    tail = tail->next;
+    tail = head;
 
     struct returnValues result;
     result.tail = tail;
