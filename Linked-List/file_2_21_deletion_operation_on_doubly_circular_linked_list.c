@@ -69,96 +69,98 @@ struct returned_list create_a_doubly_circular_linked_list(struct node *head, str
 
 }
 
-//******** Insert node at the begining
-struct returned_list insert_node_at_the_beg(struct node *head, struct node *tail, int nodeNo){
-    struct node *newnode;
-    newnode = create_a_single_node_for_doubly_circular_linked_list(newnode);
+//******** Delete node from the begining of doubly circular linked list
+struct returned_list delete_node_from_the_beg(struct node *head, struct node *tail, int nodeNo){
+    
 
     if(head == NULL){
-        head = newnode;
-        tail = newnode;
-        newnode->prev = newnode;
-        newnode->next = newnode;
-        nodeNo++;
+        printf("Doubly circular linked list is empty.");
     }
 
-    else{
-        newnode->next = head;
-        newnode->prev = tail;
-        head->prev = newnode;
-        tail->next = newnode;
-        head = newnode;
-        nodeNo++;
-    }
-
-    struct returned_list return_list;
-
-    return_list.head = head;
-    return_list.tail = tail;
-    return_list.nodeNo = nodeNo;
-
-    return return_list;
-
-}
-
-//******** Insert node at the end
-struct returned_list insert_at_the_end(struct node *head, struct node *tail, int nodeNo){
-    struct node *newnode;
-    newnode = create_a_single_node_for_doubly_circular_linked_list(newnode);
-
-    if(head == NULL){
-        head = newnode;
-        tail = newnode;
-        newnode->prev = newnode;
-        newnode->next = newnode;
-        nodeNo++;
-    }
-    else{
-        newnode->prev = tail;
-        newnode->next = head;
-        head->prev = newnode;
-        tail->next = newnode;
-        tail = newnode;
-        nodeNo++;        
-    }
-
-    struct returned_list return_list;
-
-    return_list.head = head;
-    return_list.tail = tail;
-    return_list.nodeNo = nodeNo;
-
-    return return_list;
-
-}
-
-//******** Insert node at a random postion
-struct returned_list insert_node_at_a_random_pos(struct node *head, struct node *tail,int input_position, int nodeNo){
-    struct node *newnode;
-    newnode = create_a_single_node_for_doubly_circular_linked_list(newnode);
-
-    if(head == NULL){
-        head = newnode;
-        tail = newnode;
-        newnode->prev = newnode;
-        newnode->next = newnode;
-        nodeNo++;
-    }
     else{
         struct node *temp;
         temp = head;
 
-        int i = 1;
-        while(i < input_position - 1){
-            temp = temp->next;
-            i++;
-        }
+        tail->next = temp->next;
+        temp->next->prev = tail;
+        head = temp->next;
+        free(temp);
+        nodeNo--;
+    }
 
-        newnode->prev = temp;
-        newnode->next = temp->next;
-        temp->next->prev = newnode;
-        temp->next = newnode;
-        nodeNo++;
+    struct returned_list return_list;
+
+    return_list.head = head;
+    return_list.tail = tail;
+    return_list.nodeNo = nodeNo;
+
+    return return_list;
+
+}
+
+//******** Delete node from the end of the doubly circular linked list
+struct returned_list delete_node_from_the_end_of_linked_list(struct node *head, struct node *tail, int nodeNo){
+
+    if(head == NULL){
+        printf("Doubly circular linked list is empty!");
+    }
+    else{
+        struct node *temp;
+        
+        temp = tail;
+
+        temp->prev->next = head;
+        tail = temp->prev;
+        head->prev = tail;
+        free(temp);
+        nodeNo--;
+    }
+
+    struct returned_list return_list;
+
+    return_list.head = head;
+    return_list.tail = tail;
+    return_list.nodeNo = nodeNo;
+
+    return return_list;
+
+}
+
+//******** Delete node from a random position of doubly circular linked list
+struct returned_list delete_node_from_a_random_pos(struct node *head, struct node *tail,int input_position, int nodeNo){
+
+    if(head == NULL){
+       printf("Doubly circular linked list is empty!");
+    }
+    else{
+        
+        struct node *prevNode, *currentNode, *nextNode;
+
+        
+
+        if(head == NULL){
+            printf("Doubly circular linked list is empty!");
+        }
+        else{
+            currentNode = head;
+            prevNode = currentNode->prev;
+            nextNode = currentNode->next;
+
+            int i = 1;
+            while(i != input_position){
+                currentNode = currentNode->next;
+                prevNode = currentNode->prev;
+                nextNode = currentNode->next;
+
+                i++;
+            }
+
+            prevNode->next = nextNode;
+            nextNode->prev = prevNode;
+            free(currentNode);
+            nodeNo--;
+
+        }
     }
 
     struct returned_list return_list;
@@ -214,29 +216,29 @@ int main(void){
     display_doubly_circular_linked_list(head,tail,nodeNo);
 
     int input_position = 0;
-    printf("\nEnter the position you want to insert the new node: ");
+    printf("\nEnter the position you want to delete the node from: ");
     scanf("%d", &input_position);
 
-    if(input_position < 0 || input_position > nodeNo + 1){
+    if(input_position < 0 || input_position > nodeNo){
         printf("Invalid input position");
     }
     else{
         if(input_position == 1){
-            result = insert_node_at_the_beg(head,tail,nodeNo);
+            result = delete_node_from_the_beg(head,tail,nodeNo);
 
             head = result.head;
             tail = result.tail;
             nodeNo = result.nodeNo;
         }
-        else if(input_position == nodeNo + 1){
-            result = insert_at_the_end(head,tail,nodeNo);
+        else if(input_position == nodeNo){
+            result = delete_node_from_the_end_of_linked_list(head,tail,nodeNo);
             
             head = result.head;
             tail = result.tail;
             nodeNo = result.nodeNo;
         }
         else{
-            result = insert_node_at_a_random_pos(head,tail,input_position,nodeNo);
+            result = delete_node_from_a_random_pos(head,tail,input_position,nodeNo);
 
             head = result.head;
             tail = result.tail;
