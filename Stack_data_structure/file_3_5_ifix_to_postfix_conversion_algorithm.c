@@ -2,6 +2,8 @@
 
 char expression[50] = {'K','+','L','-','M','*','N','+','(','O','^','P',')','*','W','/','U','/','V','*','T','+','Q','\0'};
 
+// char expression[50] = "k+L-M*N+(O^P)*W/U/V*T+Q";
+
 char stack[25] = {};
 
 void push(char data){
