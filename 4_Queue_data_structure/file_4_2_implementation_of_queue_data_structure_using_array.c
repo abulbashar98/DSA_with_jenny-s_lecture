@@ -44,7 +44,7 @@ void display(){
 
     printf("\nCurrent queue: ");
     for(int i = front; i <= rear; i++){
-        printf("%d", queue[i]);
+        printf("%d ", queue[i]);
     }
 
     printf("\n");
@@ -71,6 +71,7 @@ int main(void){
     enqueue(12);
     enqueue(15);
     enqueue(17);
+    display();
     dequeue();
     dequeue();
     peek();
