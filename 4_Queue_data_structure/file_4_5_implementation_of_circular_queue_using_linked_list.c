@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
 struct node{
     int data;
@@ -30,7 +29,6 @@ void enqueue(int x){
         newnode->next = front;
     }
 
-    getch();
 
 }
 
@@ -55,6 +53,8 @@ void dequeue(){
         temp = front;
         printf("\nDequeued element: %d", temp->data);
         front = front->next;
+        rear->next = front;
+
         free(temp);
 
     }
