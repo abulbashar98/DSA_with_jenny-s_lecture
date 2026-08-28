@@ -44,7 +44,7 @@ void enqueue_at_rear(int x){
         rear->next = newnode;
         newnode->prev = rear;
         rear = newnode;
-        rear->next = front;
+        newnode->next = front;
         front->prev = newnode;
         que_count++;
     }
@@ -72,6 +72,7 @@ void dequeue_from_front(){
         printf("\ndequeued element from front: %d", front->data);
         front = front->next;
         free(temp);
+        que_count--;
     }
 }
 
@@ -91,8 +92,8 @@ void enqueue_at_front(int x){
         front->prev = newnode;
         newnode->next = front;
         front = newnode;
-        front->prev = rear;
-        rear->next = front;
+        newnode->prev = rear;
+        rear->next = newnode;
         que_count++;
     }
 
@@ -117,6 +118,7 @@ void dequeue_from_rear(){
         rear->prev->next = front;
         printf("\ndequeued element from rear: %d", rear->data);
         rear = rear->prev;
+        front->prev = rear;
         free(temp);
         que_count--;
     }
@@ -161,7 +163,7 @@ void get_rear(){
         printf("The queue is empty");
     }
     else{
-        printf("\nThe current first element from the front side of this double ended que using FIFO principle is: %d", rear->data);
+        printf("\nThe current first element from the rear side of this double ended que using FIFO principle is: %d", rear->data);
     }
 
 }
