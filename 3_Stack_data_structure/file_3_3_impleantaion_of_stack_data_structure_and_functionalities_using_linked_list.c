@@ -85,15 +85,31 @@ int main(){
         printf("0.Exit the programme.\n");
 
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        while(scanf("%d", &choice) != 1){
+            printf("Invalid choice!\n");
+            char buffer;
+            while((buffer = getchar()) != '\n' && buffer != EOF){
+                printf("Found this in buffer: %c\nEnter your choice again: ");
+            }
+        }
 
         switch (choice)
         {
         case 1:
             int data;
             printf("Enter data you want to insert in stack: ");
-            scanf("%d", &data);
-            push(data);
+            if(scanf("%d", &data) != 1){
+                printf("Invalid data!\n");
+                while(scanf("%d", &data) != 1){
+                    char buffer;
+                    while((buffer = getchar()) != '\n' && buffer != EOF){
+                        printf("Found this in buffer: %c\nPlease provide a valid integer: ", buffer);
+                    }
+                }
+            }
+            else{
+                push(data);
+            }
             break;
         case 2:
             pop();
@@ -105,11 +121,10 @@ int main(){
             display();
             break;
         case 0:
-            getch();
+            printf("Quitting....");
             break;    
 
         default:
-            getch();
             printf("Invalid choice! try again.\n");
 
         }
