@@ -10,14 +10,23 @@ void push(void)
 {
     int data;
 
-    if (top >= N - 1)
+    if (top == N - 1)
     {
         printf("Overflow condition! Stack is full.\n");
     }
     else
     {
         printf("Enter data you want to insert in stack: ");
-        scanf("%d", &data);
+
+        while (scanf("%d", &data) != 1)
+        {
+            printf("Invalid data!\n");
+            
+            int buffer_value;
+            while ((buffer_value = getchar()) != '\n' && buffer_value != EOF){
+                printf("Found this in buffer: %c\nPlease input a valid integer: ", buffer_value);
+            }   
+        }
 
         top++;
         stack[top] = data;
@@ -86,9 +95,18 @@ int main(void)
         printf("3. Peek / Top\n");
         printf("4. Display\n");
         printf("0. Exit\n");
+
         printf("Enter your choice: ");
 
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid choice!\n");
+
+            int buffer_value;
+            while ((buffer_value = getchar()) != '\n' && buffer_value != EOF){
+                printf("Found this in buffer: %c\nEnter choice again: ", buffer_value);
+            }
+        }
 
         switch (choice)
         {
